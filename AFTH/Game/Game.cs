@@ -54,7 +54,6 @@ namespace Game
                     }
                     if (i == 0) renderer.Append("Highscore");
                     renderer.Append("\n");
-                    
                 }
                 Console.Clear();
                 Console.WriteLine(renderer);

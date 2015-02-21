@@ -109,7 +109,6 @@ namespace Game
                 }
             }
         }
-
         static void ExitConfirm()
         {
             Console.Clear();

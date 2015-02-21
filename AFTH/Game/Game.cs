@@ -9,10 +9,11 @@ namespace Game
 {
     class Game
     {
+
         static void Main()
         {
             Console.Clear();
-            int[] size = {8, 8};
+            int[] size = { 8, 8 };
             char[,] board = new char[size[0], size[1]];
 
             while (true)
@@ -37,21 +38,52 @@ namespace Game
 
         static void Play(int width, int height)
         {
+
+            int x = width / 2;
+            int y = height - 2;
             while (true)
             {
-                Console.Clear();
                 char[,] board = new char[width, height];
-                board = Board(board);
-
+                board = Board(board, x, y);
+                StringBuilder renderer =new StringBuilder("");
                 for (int i = 0; i < board.GetLength(1); i++)
                 {
                     for (int j = 0; j < board.GetLength(0); j++)
                     {
-                        Console.Write(board[j, i]);
+                        renderer.Append(board[j, i]);
                     }
-                    Console.WriteLine();
+                    renderer.Append("\n");
                 }
-                Thread.Sleep(1000);
+                Console.Clear();
+                Console.WriteLine(renderer);
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo userInput = Console.ReadKey();
+                    if (userInput.Key == ConsoleKey.LeftArrow)
+                    {
+                        x--;
+                        if (x < 1) x++;
+
+                    }
+                    if (userInput.Key == ConsoleKey.RightArrow)
+                    {
+                        x++;
+                        if (x > width - 2) x--;
+                    }
+                    if (userInput.Key == ConsoleKey.UpArrow)
+                    {
+                        y--;
+                        if (y < 1) y++;
+                    }
+                    if (userInput.Key == ConsoleKey.DownArrow)
+                    {
+                        y++;
+                        if (y > height - 2) y--;
+                    }
+
+                }
+               
+                Thread.Sleep(20);
             }
         }
 
@@ -62,7 +94,7 @@ namespace Game
             Console.ReadLine();
         }
 
-        static char[,] Board(char[,] board)
+        static char[,] Board(char[,] board, int x, int y)
         {
             for (int i = 0; i < board.GetLength(0); i++)
             {
@@ -77,6 +109,7 @@ namespace Game
             {
                 board[i, board.GetLength(1) - 1] = '.';
             }
+            board[x, y] = '@';
             return board;
         }
 
